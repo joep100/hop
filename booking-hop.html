@@ -349,6 +349,50 @@ h2 .n{flex:none;width:26px;height:26px;border-radius:50%;background:var(--brand)
   .job__mob{margin-left:0;width:100%}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* ============================================================
+   hop counter layout. Appended deliberately: delete this block
+   and the tool returns exactly to how it looked before.
+   ============================================================ */
+
+/* Held in one hand at a counter, so one column at phone width. */
+.wrap{max-width:540px}
+.grid{grid-template-columns:1fr !important}
+.f--unit{max-width:none}
+
+/* Bigger targets. Staff are typing fast with a customer waiting, and
+   16px is also the size that stops iOS zooming the page on focus. */
+.panel{padding:22px 20px 20px;border-radius:14px}
+.panel h2{font-size:20px}
+input,select,textarea{font-size:16px;padding:13px 13px}
+label{font-size:12.5px}
+
+/* The cut-off stops being a tick in a list and becomes the loudest thing
+   on the panel, coloured by whether it makes today. */
+.checks{border-top:0;padding-top:0;gap:12px}
+#chk-when-row{border-radius:11px;padding:14px 15px;align-items:flex-start;
+  border:1px solid var(--line);background:var(--paper)}
+#chk-when-row .check__tick{display:none}
+#chk-when-row b{font-size:15.5px;display:block;margin-bottom:3px}
+#chk-when-row span{font-size:13.5px;line-height:1.5}
+#chk-when-row.is-today{background:var(--green-bg);border-color:var(--green-br)}
+#chk-when-row.is-today b{color:var(--green)}
+#chk-when-row.is-tomorrow{background:var(--amber-bg);border-color:var(--amber-br)}
+#chk-when-row.is-tomorrow b{color:var(--amber)}
+
+#chk-addr-row{border-radius:11px;padding:13px 15px;background:var(--paper);
+  border:1px solid var(--line)}
+
+/* The reference is what goes on the bag in biro, so it is the biggest
+   thing on the row rather than a small mono label beside the name. */
+.bagref{font-size:17px;font-weight:600;letter-spacing:.08em;
+  border:2px dashed var(--brand);border-radius:9px;padding:6px 11px;
+  color:var(--brand);background:#fff;display:inline-block}
+
+@media (max-width:760px){
+  .wrap{max-width:none}
+  .panel{padding:18px 16px 16px}
+}
 </style>
 </head>
 <body>
@@ -1980,6 +2024,22 @@ draw();
 
 $("rpkgs").value = PACKAGES_DEFAULT;
 $("rweight").value = WEIGHT_DEFAULT;
+
+/* ---------- hop counter layout ----------
+   The cut-off row is coloured from the text the existing code puts in it,
+   so nothing above needs to know this exists. Remove freely. */
+(function(){
+  var row = document.getElementById("chk-when-row");
+  var when = document.getElementById("chk-when");
+  if(!row || !when) return;
+  function paint(){
+    var s = (when.textContent || "").toLowerCase();
+    row.classList.toggle("is-today", s.indexOf("today") !== -1);
+    row.classList.toggle("is-tomorrow", s.indexOf("tomorrow") !== -1);
+  }
+  new MutationObserver(paint).observe(when, {childList:true, characterData:true, subtree:true});
+  paint();
+})();
 </script>
 </body>
 </html>
