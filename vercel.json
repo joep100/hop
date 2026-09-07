@@ -1,4 +1,8 @@
 {
   "cleanUrls": true,
-  "trailingSlash": false
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/shops", "destination": "/", "permanent": false },
+    { "source": "/shops.html", "destination": "/", "permanent": false }
+  ]
 }
