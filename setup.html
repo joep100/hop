@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en-IE"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>hop — adding the rate in Shopify</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Nunito:wght@700;800&display=swap" rel="stylesheet">
+<style>
+:root{--orange:#E34C2F;--ink:#17191b;--body:#4b5257;--mute:#7c838a;--line:#e7e4df;
+ --sh-ink:#303030;--sh-mute:#616161;--sh-line:#e1e1e1;--sh-bg:#f7f7f7;--sh-green:#1a6b3c;
+ --sh-btn:#303030}
+*{box-sizing:border-box}
+body{margin:0;background:#f1efec;font-family:Inter,-apple-system,system-ui,sans-serif;
+ color:var(--ink);font-size:15px;-webkit-font-smoothing:antialiased}
+.page{max-width:940px;margin:0 auto;padding:44px 24px 90px}
+h1{font-family:Nunito,sans-serif;font-size:23px;font-weight:800;letter-spacing:-.02em;margin:0 0 6px}
+.lede{color:var(--body);font-size:15.5px;line-height:1.6;margin:0 0 12px;max-width:62ch}
+.time{display:inline-block;background:#fff;border:1px solid var(--line);border-radius:100px;
+ padding:7px 15px;font-size:13.5px;font-weight:600;margin-bottom:34px}
+
+.step{margin-bottom:30px}
+.step__hd{display:-webkit-box;display:flex;align-items:baseline;gap:12px;margin-bottom:8px}
+.step__n{flex:none;width:26px;height:26px;border-radius:50%;background:var(--orange);color:#fff;
+ font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;
+ margin-right:12px}
+.step__hd h2{font-family:Nunito,sans-serif;font-size:18px;font-weight:800;margin:0;
+ letter-spacing:-.01em}
+.step p{font-size:14.5px;color:var(--body);line-height:1.6;margin:0 0 14px;max-width:64ch}
+.step p b{color:var(--ink)}
+
+/* mock shopify admin panel */
+.sh{background:#fff;border:1px solid var(--sh-line);border-radius:10px;overflow:hidden;
+ box-shadow:0 8px 22px -16px rgba(20,22,24,.25);max-width:620px}
+.sh__hd{background:var(--sh-bg);border-bottom:1px solid var(--sh-line);padding:11px 16px;
+ font-size:13px;color:var(--sh-mute);font-weight:500}
+.sh__hd b{color:var(--sh-ink);font-weight:600}
+.sh__b{padding:16px}
+.sh h3{font-size:14.5px;font-weight:600;color:var(--sh-ink);margin:0 0 10px}
+
+.menu{border:1px solid var(--sh-line);border-radius:7px;overflow:hidden}
+.menu div{padding:10px 14px;font-size:14px;color:var(--sh-ink);border-bottom:1px solid #efefef}
+.menu div:last-child{border-bottom:0}
+.menu div.is-on{background:#f0f6ff;box-shadow:inset 2px 0 0 var(--sh-btn);font-weight:600}
+
+.fld{margin-bottom:14px}
+.fld label{display:block;font-size:13px;color:var(--sh-ink);margin-bottom:5px;font-weight:500}
+.fld .in{border:1px solid #8a8a8a;border-radius:7px;padding:9px 11px;font-size:14px;
+ background:#fff;color:var(--sh-ink)}
+.fld .in.ghost{color:#8f8f8f}
+.fld .hint{font-size:12.5px;color:var(--sh-mute);margin-top:5px}
+.pair{display:-webkit-box;display:flex;flex-wrap:wrap;margin:0 -7px}
+.pair>.fld{flex:1 1 200px;margin:0 7px 14px}
+
+.chips{display:-webkit-box;display:flex;flex-wrap:wrap;margin:0 -4px}
+.chips span{background:#f0f0f0;border:1px solid var(--sh-line);border-radius:6px;
+ padding:5px 10px;font-size:13px;color:var(--sh-ink);margin:0 4px 6px}
+.chips span.on{background:#e3f1e8;border-color:#bcdfc9;color:var(--sh-green);font-weight:600}
+
+.rate{border:1px solid var(--sh-line);border-radius:7px;padding:12px 14px;
+ display:-webkit-box;display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.rate .nm{flex:1;margin-right:12px}
+.rate .nm b{display:block;font-size:14px;font-weight:600;color:var(--sh-ink)}
+.rate .nm i{font-style:normal;display:block;font-size:12.5px;color:var(--sh-mute);margin-top:2px}
+.rate .pr{flex:none;font-size:14px;font-weight:600;color:var(--sh-ink)}
+.rate.is-new{border-color:#bcdfc9;background:#f4fbf6}
+
+.btnrow{display:-webkit-box;display:flex;gap:9px;margin-top:14px}
+.b{background:var(--sh-btn);color:#fff;border:0;border-radius:7px;padding:9px 15px;
+ font:inherit;font-size:13.5px;font-weight:500;margin-right:9px}
+.b.alt{background:#fff;color:var(--sh-ink);border:1px solid #b5b5b5}
+
+
+h2.big{font-family:Nunito,sans-serif;font-size:21px;font-weight:800;letter-spacing:-.02em;
+ margin:38px 0 8px;padding-top:26px;border-top:1px solid #dcd8d3}
+.explain{margin-bottom:14px}
+.ex__h{font-family:Nunito,sans-serif;font-size:18px;font-weight:800;margin:26px 0 14px}
+.ex{display:-webkit-box;display:flex;flex-wrap:wrap;margin:0 -9px}
+.ex__c{flex:1 1 300px;margin:0 9px 18px;background:#fff;border:1px solid var(--line);
+ border-radius:12px;padding:22px 24px}
+.ex__c.is-full{border-color:#bcdfc9;background:#f8fdfa}
+.ex__t{display:block;font-size:11px;letter-spacing:.09em;text-transform:uppercase;
+ color:var(--mute);font-weight:700;margin-bottom:9px}
+.ex__c.is-full .ex__t{color:var(--sh-green)}
+.ex__c h3{font-family:Nunito,sans-serif;font-size:18px;font-weight:800;margin:0 0 9px;
+ letter-spacing:-.01em}
+.ex__c p{font-size:14.5px;color:var(--body);line-height:1.6;margin:0 0 10px}
+.ex__c p:last-child{margin:0}
+.ex__k{font-family:Nunito,sans-serif;font-size:18px;font-weight:800;color:var(--ink);
+ line-height:1.4;margin:8px 0 0;padding-top:18px;border-top:2px solid var(--orange);
+ display:inline-block;max-width:46ch}
+
+.hs{display:-webkit-box;display:flex;flex-wrap:wrap;margin:24px -9px 0}
+.hs__s{flex:1 1 220px;margin:0 9px 18px;background:#fff;border:1px solid var(--line);
+ border-radius:12px;padding:20px}
+.hs__n{display:flex;align-items:center;justify-content:center;width:26px;height:26px;
+ border-radius:50%;background:var(--orange);color:#fff;font-size:13px;font-weight:700;
+ margin-bottom:12px}
+.hs__s h3{font-family:Nunito,sans-serif;font-size:15.5px;font-weight:800;margin:0 0 7px;
+ line-height:1.3}
+.hs__s p{font-size:13.5px;color:var(--body);line-height:1.55;margin:0}
+.callout{background:#fff;border:1px solid var(--line);border-left:4px solid var(--orange);
+ border-radius:10px;padding:20px 24px;margin:32px 0}
+.callout b{font-family:Nunito,sans-serif;font-weight:800;display:block;font-size:16px;
+ margin-bottom:8px}
+.callout p{font-size:14.5px;color:var(--body);line-height:1.6;margin:0 0 10px;max-width:66ch}
+.callout p:last-child{margin:0}
+
+.after{margin-top:40px;border-top:1px solid #dcd8d3;padding-top:30px}
+.after h3{font-family:Nunito,sans-serif;font-size:16px;font-weight:800;margin:0 0 10px}
+.after li{font-size:14.5px;color:#5b6167;line-height:1.62;margin-bottom:10px;max-width:68ch}
+.after li b{color:#2b2f33}
+.after p{font-size:14px;color:#5b6167;line-height:1.62;max-width:68ch}
+</style></head><body><div class="page">
+
+<h1>Two ways it goes on your checkout</h1>
+<p class="lede">There is a version you can switch on yourself next week, and a proper version
+that replaces it once you know your customers want it. They look identical to a shopper. What
+happens behind them is completely different.</p>
+
+<section class="explain">
+  <h2 class="ex__h">The difference, without the jargon</h2>
+  <div class="ex">
+    <div class="ex__c">
+      <span class="ex__t">Version one</span>
+      <h3>A sign in the window</h3>
+      <p>You put up a notice that says same-day delivery is available in Dublin. It says the
+      same thing to everybody, all day, whether or not it happens to be true for the person
+      reading it.</p>
+      <p>You set it up in three minutes and it costs nothing. It cannot tell a Rathfarnham
+      address from a Ranelagh one, and it does not know what time it is.</p>
+    </div>
+    <div class="ex__c is-full">
+      <span class="ex__t">Version two</span>
+      <h3>Someone at the counter who checks</h3>
+      <p>The customer types their address. Before your checkout draws the delivery options, it
+      asks us a question: can you get to this address today? We look at the Eircode, look at
+      the clock, and answer yes or no. Only then does the option appear.</p>
+      <p>That happens on every single checkout, in about a second, and the customer never sees
+      it happen. If the answer is no, they simply never see same-day offered.</p>
+    </div>
+  </div>
+  <p class="ex__k">Version one tells everyone the rule. Version two answers every case.</p>
+</section>
+
+<h2 class="big">Version one: switch it on yourself</h2>
+<p class="lede">No app to install and nothing for us to build. You add a shipping rate the same
+way you would add any other, sitting inside a Dublin-only zone.</p>
+<div class="time">Five steps, about three minutes</div>
+
+<div class="step">
+  <div class="step__hd"><span class="step__n">1</span><h2>Open your shipping settings</h2></div>
+  <p>In your Shopify admin, click <b>Settings</b> at the bottom of the left menu, then
+  <b>Shipping and delivery</b>.</p>
+  <div class="sh">
+    <div class="sh__hd">Settings</div>
+    <div class="sh__b">
+      <div class="menu">
+        <div>General</div>
+        <div>Plan</div>
+        <div>Billing</div>
+        <div class="is-on">Shipping and delivery</div>
+        <div>Taxes and duties</div>
+        <div>Locations</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step__hd"><span class="step__n">2</span><h2>Manage your general rates</h2></div>
+  <p>Under <b>Shipping</b> you will see your shipping profile, usually called General shipping
+  rates. Click <b>Manage</b> beside it.</p>
+  <div class="sh">
+    <div class="sh__hd">Settings &nbsp;&rsaquo;&nbsp; <b>Shipping and delivery</b></div>
+    <div class="sh__b">
+      <h3>Shipping</h3>
+      <div class="rate">
+        <div class="nm"><b>General shipping rates</b><i>All products &middot; 1 location</i></div>
+        <button class="b alt">Manage</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step__hd"><span class="step__n">3</span><h2>Add a zone for Dublin only</h2></div>
+  <p>This is the step that matters. Click <b>Create zone</b>, name it Dublin, and tick
+  <b>Dublin</b> in the county list. That means the rate you are about to add will only ever
+  appear for a Dublin address, and everyone else sees your normal options.</p>
+  <div class="sh">
+    <div class="sh__hd">General shipping rates &nbsp;&rsaquo;&nbsp; <b>Create zone</b></div>
+    <div class="sh__b">
+      <div class="fld">
+        <label>Zone name</label>
+        <div class="in">Dublin</div>
+      </div>
+      <div class="fld">
+        <label>Counties in Ireland</label>
+        <div class="chips">
+          <span>Carlow</span><span>Cavan</span><span>Clare</span><span>Cork</span>
+          <span>Donegal</span><span class="on">Dublin &check;</span><span>Galway</span>
+          <span>Kerry</span><span>Kildare</span><span>Kilkenny</span>
+        </div>
+        <p class="hint">Only Dublin ticked.</p>
+      </div>
+      <div class="btnrow"><button class="b">Done</button></div>
+    </div>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step__hd"><span class="step__n">4</span><h2>Add the rate</h2></div>
+  <p>Inside your new Dublin zone, click <b>Add rate</b>, choose <b>Set up your own rates</b>,
+  and fill in the name and the price. The name is what your customer reads at the checkout, so
+  write it the way you want it to sound.</p>
+  <div class="sh">
+    <div class="sh__hd">Dublin &nbsp;&rsaquo;&nbsp; <b>Add rate</b></div>
+    <div class="sh__b">
+      <div class="pair">
+        <div class="fld">
+          <label>Name</label>
+          <div class="in">Same day, today</div>
+          <p class="hint">Customers will see this at checkout.</p>
+        </div>
+        <div class="fld">
+          <label>Price</label>
+          <div class="in">&euro; 14.99</div>
+          <p class="hint">Your figure, not ours.</p>
+        </div>
+      </div>
+      <div class="fld">
+        <label>Description <span style="color:#8f8f8f;font-weight:400">optional</span></label>
+        <div class="in">Order before 2pm and a rider brings it this afternoon</div>
+      </div>
+      <div class="fld">
+        <label>Add conditions</label>
+        <div class="in">Based on item weight &middot; maximum 3&nbsp;kg</div>
+        <p class="hint">Keeps the rate off anything too big for a bag.</p>
+      </div>
+      <div class="btnrow"><button class="b">Done</button><button class="b alt">Cancel</button></div>
+    </div>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step__hd"><span class="step__n">5</span><h2>Save, and look at your own checkout</h2></div>
+  <p>Click <b>Save</b>. It is live straight away. Put something in your basket, go to the
+  checkout with a Dublin address, and it will be sitting there.</p>
+  <div class="sh">
+    <div class="sh__hd">General shipping rates &nbsp;&rsaquo;&nbsp; <b>Dublin</b></div>
+    <div class="sh__b">
+      <div class="rate is-new">
+        <div class="nm"><b>Same day, today</b><i>Up to 3&nbsp;kg &middot; Dublin only</i></div>
+        <div class="pr">&euro;14.99</div>
+      </div>
+      <div class="rate">
+        <div class="nm"><b>Standard delivery</b><i>2 to 3 working days</i></div>
+        <div class="pr">your rate</div>
+      </div>
+      <div class="btnrow"><button class="b">Save</button></div>
+    </div>
+  </div>
+</div>
+
+<div class="callout">
+  <b>What version one does not do</b>
+  <p>A rate you add yourself covers the whole of County Dublin, so it will show for a few
+  addresses we cannot reach and it does not know what time it is. For the first month that is
+  usually fine, because you are finding out whether your customers want same-day at all, and
+  your staff see every order before it goes anywhere.</p>
+  <p>The app version replaces it later. That one checks the exact Eircode and the clock, so the
+  option only appears when it can actually be met. Same rate at the checkout, better decision
+  behind it.</p>
+</div>
+
+
+<h2 class="big" style="margin-top:46px">Version two: the checkout asks us</h2>
+<p class="lede">This is the one the site describes. It needs a small app on your store, which
+we build and you install in a couple of clicks. After that you never touch it.</p>
+
+<div class="hs">
+  <div class="hs__s">
+    <span class="hs__n">1</span>
+    <h3>The customer types their address</h3>
+    <p>Ordinary checkout, nothing unusual. They put in 42 Waterloo Road, Dublin 4.</p>
+  </div>
+  <div class="hs__s">
+    <span class="hs__n">2</span>
+    <h3>Your checkout asks us a question</h3>
+    <p>Before it draws the delivery options, Shopify sends us the address and waits. The
+    customer sees a spinner for about a second.</p>
+  </div>
+  <div class="hs__s">
+    <span class="hs__n">3</span>
+    <h3>We check three things and answer</h3>
+    <p>Is that Eircode on a route. Is it before your cut-off. Is your shop switched on today.
+    Then we reply with your price, or with nothing at all.</p>
+  </div>
+  <div class="hs__s">
+    <span class="hs__n">4</span>
+    <h3>The option appears, or it does not</h3>
+    <p>Same-day sits at the top of the list at your price, dated today or tomorrow. Or it is
+    absent, and the customer sees your usual options and nothing else.</p>
+  </div>
+</div>
+
+<div class="callout">
+  <b>What changes for you</b>
+  <p>Nothing at the counter and nothing in your admin. The rate you added by hand comes out,
+  the app goes in, and from then on the option looks after itself. You still set the price, and
+  you can change it whenever you like.</p>
+  <p>The reason to wait is not the work. It is that version one answers the only question worth
+  asking first, which is whether your customers choose same-day at all. If they do, this is
+  worth building. If they do not, you have lost three minutes.</p>
+</div>
+
+<div class="after">
+  <h3>Then the part that is ours</h3>
+  <ul>
+    <li><b>Tell us it is on.</b> We add your shop to the collection round and give you a booking
+      link for the counter.</li>
+    <li><b>When an order comes in with that rate chosen</b>, book it through the link. Eircode,
+      name, mobile, and it is done.</li>
+    <li><b>A rider calls at 2pm.</b> Whatever is packed goes out.</li>
+    <li><b>After a month, look at the numbers.</b> How many chose it, what they spent, whether
+      any of them came back. That is the only evidence worth having.</li>
+  </ul>
+  <p>Shopify moves things around in its admin from time to time, so a menu may sit in a slightly
+  different place than shown here. The five steps are the same.</p>
+</div>
+
+</div></body></html>

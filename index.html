@@ -114,6 +114,22 @@ p{margin:0 0 14px;color:var(--body);max-width:62ch}
 .opt span{color:var(--mute);font-size:13.5px;white-space:nowrap}
 .co .note{font-size:13px;color:var(--mute);margin:12px 0 0}
 
+
+/* ---------- how it goes live ---------- */
+.vers{display:-webkit-box;display:flex;flex-wrap:wrap;margin:26px -9px 0}
+.vers>div{flex:1 1 300px;margin:0 9px 18px;background:#fff;border:1px solid var(--line);
+ border-radius:15px;padding:24px}
+.vers .now{border-color:var(--line)}
+.vers .later{border-color:var(--green-br);background:#f8fdfa}
+.vers .lab{display:block;font-size:11px;letter-spacing:.09em;text-transform:uppercase;
+ font-weight:700;color:var(--mute);margin-bottom:10px}
+.vers .later .lab{color:var(--green)}
+.vers h3{font-size:19px;font-weight:800;letter-spacing:-.02em;margin:0 0 9px}
+.vers p{font-size:14.5px;margin:0 0 10px}
+.vers p:last-child{margin:0}
+.vers .mins{font-size:13px;color:var(--mute);font-weight:700;margin-top:12px;
+ padding-top:12px;border-top:1px solid var(--line)}
+
 /* ---------- price ---------- */
 .price{background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;
  max-width:560px}
@@ -279,6 +295,7 @@ footer{background:#f2efe9;border-top:1px solid var(--line);margin-top:0}
     <a href="#counter">At the counter</a>
     <a href="#website">On your site</a>
     <a href="#sizes">What and how far</a>
+    <a href="#live">Going live</a>
     <a href="#price">Price</a>
     <a href="#times">Times</a>
     <a href="#start">Get started</a>
@@ -418,9 +435,51 @@ footer{background:#f2efe9;border-top:1px solid var(--line);margin-top:0}
     </div>
   </div>
 
-  <p class="small" style="margin-top:16px">Built as a Shopify app on your store. WooCommerce
-  and others work the same way with a little more setup. The &euro;14.99 shown is an example
-  of what a shop might charge, and your standard rates stay exactly as they are.</p>
+  <p style="margin-top:20px">Your checkout offers the bag rate. Anything larger is booked at
+  the counter, because a website cannot see what has been packed and a person can. In practice
+  almost everything a shop posts is a bag, and the box is for the case of wine somebody rings
+  up about.</p>
+  <p class="small">Built as a Shopify app on your store. WooCommerce and others work the same
+  way with a little more setup. The &euro;14.99 shown is an example of what a shop might charge,
+  and your standard rates stay exactly as they are.</p>
+</section>
+
+<section id="live">
+  <h2>How it gets onto your checkout</h2>
+  <p>There is a version you can switch on yourself next week and a proper version that replaces
+  it once you know your customers want it. They look identical to a shopper. What happens behind
+  them is not the same thing at all.</p>
+
+  <div class="vers">
+    <div class="now">
+      <span class="lab">Start here</span>
+      <h3>A sign in the window</h3>
+      <p>You add a delivery rate in your own Shopify settings, inside a Dublin-only zone. It says
+      the same thing to everybody, all day, whether or not it happens to be true for the person
+      reading it.</p>
+      <p>Good enough to find out whether your customers want same-day, which is the only question
+      worth asking first.</p>
+      <p class="mins">Five steps in your admin, about three minutes</p>
+    </div>
+    <div class="later">
+      <span class="lab">Then this</span>
+      <h3>Someone who checks</h3>
+      <p>The customer types their address. Before your checkout draws the delivery options it
+      asks us a question: can you get to this address today? We look at the Eircode, look at the
+      clock, and answer. Only then does the option appear.</p>
+      <p>Every checkout, about a second, and the customer never sees it happen. If the answer is
+      no they simply never see same-day offered.</p>
+      <p class="mins">A small app on your store, installed in two clicks</p>
+    </div>
+  </div>
+
+  <p class="kicker" style="margin-top:10px">The first tells everyone the rule. The second answers
+  every case.</p>
+
+  <p style="margin-top:26px">The reason to start with the first is not the work involved. It is
+  that a month of your own numbers is worth more than any argument either of us can make, and
+  you can have it by next week.
+  <a href="./setup.html" style="color:var(--orange);font-weight:700">See the five steps &rarr;</a></p>
 </section>
 
 <section id="price">
@@ -551,6 +610,8 @@ footer{background:#f2efe9;border-top:1px solid var(--line);margin-top:0}
       <p class="lim">City centre shops, broadly inside the canals</p>
       <p>Anything one person can carry. If your shop is in the city centre and the customer is
       inside the canals, it is offered automatically alongside the bag.</p>
+      <p style="font-size:13.5px;color:var(--mute);margin-top:-4px">Booked at the counter, where
+      someone can see the parcel.</p>
       <ul>
         <li>A case of wine</li>
         <li>Boxed kitchenware, a set of glasses</li>
