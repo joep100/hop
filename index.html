@@ -10,9 +10,15 @@
 body{margin:0;background:var(--orange);font-family:"Nunito",system-ui,sans-serif;
  color:var(--ink);font-size:16.5px;line-height:1.5;-webkit-font-smoothing:antialiased}
 
+header{border-bottom:0}
+.bar{max-width:620px;margin:0 auto;padding:12px 26px;text-align:right}
+.signin{display:inline-block;font-size:13.5px;font-weight:700;color:#fff;text-decoration:none;
+ background:rgba(0,0,0,.18);border:1px solid rgba(255,255,255,.3);border-radius:9px;
+ padding:9px 15px;white-space:nowrap;transition:background .18s ease, color .18s ease}
+.signin:hover{background:#fff;color:#E34C2F;border-color:#fff}
 main{max-width:620px;margin:0 auto;padding:0 26px}
 
-.hero{padding:56px 0 24px;display:-webkit-box;display:flex;flex-wrap:wrap;
+.hero{padding:26px 0 24px;display:-webkit-box;display:flex;flex-wrap:wrap;
  align-items:center;margin:0 -12px}
 .hero__mark{flex:0 0 auto;width:150px;height:auto;display:block;margin:0 12px 14px}
 .hero h1{flex:1 1 280px;margin:0 12px 14px}
@@ -49,8 +55,37 @@ h1{font-size:clamp(30px,5.6vw,40px);font-weight:800;letter-spacing:-.03em;line-h
  letter-spacing:-.03em;line-height:1.15;margin:0;max-width:22ch}
 .say span{font-size:17px;color:rgba(255,255,255,.82);line-height:1.45;display:block;
  max-width:34ch}
+.waysnote{font-size:15.5px;color:rgba(255,255,255,.9);margin:0 0 14px;max-width:44ch}
+.ways{display:-webkit-box;display:flex;flex-wrap:wrap;margin:0 -5px 26px}
+.way{flex:1 1 230px;margin:0 5px 10px;border-radius:14px;padding:20px 21px}
+.way .tag{display:inline-block;font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;
+ font-weight:700;border-radius:100px;padding:4px 11px;margin-bottom:11px}
+.way h3{font-size:23px;font-weight:800;letter-spacing:-.03em;margin:0 0 8px;line-height:1.2}
+.way p{font-size:14.5px;line-height:1.5;margin:0 0 9px}
+.way .who{font-size:13.5px;margin:0}
+.way .go{display:block;font-size:15px;font-weight:800;margin-top:14px;padding-top:13px;
+ border-top:1px solid #e7e4df;color:#E34C2F;letter-spacing:-.01em}
+.way--two .go{border-top-color:rgba(255,255,255,.2);color:rgba(255,255,255,.66);
+ font-weight:700}
+a.way{text-decoration:none;display:block;transition:transform .18s ease, box-shadow .18s ease}
+a.way:hover{transform:translateY(-3px);box-shadow:0 16px 32px -18px rgba(70,16,4,.6)}
+.way--two .go{color:rgba(255,255,255,.9)}
+
+/* white card */
+.way{background:#fff}
+.way h3{color:#17191b}
+.way p{color:#4b5257}
+.way .who{color:#767c82}
+.way .tag{background:#E34C2F;color:#fff}
+
+/* black card */
+.way--two{background:#17191b}
+.way--two h3{color:#fff}
+.way--two p{color:rgba(255,255,255,.88)}
+.way--two .who{color:rgba(255,255,255,.72)}
+.way--two .tag,.way .tag--later{background:#fff;color:#17191b}
 .rows{margin-bottom:26px}
-.rows a{display:block;background:rgba(255,255,255,.1);border-radius:12px;
+.rows a{display:block;background:rgba(0,0,0,.13);border-radius:12px;
  padding:18px 44px 18px 20px;margin-bottom:8px;text-decoration:none;position:relative}
 .rows a:hover b{color:var(--dark)}
 .rows a::after{content:"\2192";position:absolute;right:18px;top:50%;margin-top:-14px;
@@ -80,7 +115,7 @@ footer{background:var(--dark);margin-top:44px}
 .foot img{width:82px;display:block;margin-bottom:10px;opacity:.92}
 .foot p{font-size:12.5px;color:#9aa0a5;margin:0 0 4px}
 .foot a{color:#e7e9ea;text-decoration:none;font-weight:700}
-@media(max-width:600px){main{padding:0 20px}.hero{padding:36px 0 20px}}
+@media(max-width:600px){main{padding:0 20px}.bar{padding:11px 20px}.hero{padding:28px 0 20px}}
 
 /* ---------- movement on hover ----------
    Restrained on purpose: a page this short has nothing to distract from, so
@@ -114,6 +149,10 @@ footer{background:var(--dark);margin-top:44px}
 
 
 
+<header><div class="bar">
+  <a class="signin" href="/login">Shop login</a>
+</div></header>
+
 <main>
 
 <div class="hero">
@@ -143,6 +182,30 @@ footer{background:var(--dark);margin-top:44px}
   <b>If your customer wants it today, now you can say yes.</b>
 </div>
 
+<p class="waysnote">Two ways to run it. Same rider, same price, same service to your
+customer &mdash; the only difference is how the order reaches us.</p>
+
+<div class="ways">
+  <a class="way" href="/setup">
+    <span class="tag">Start here</span>
+    <h3>hop</h3>
+    <p>Set same-day up in your own Shopify settings. When an order comes in, book it on a link
+    we give you: an Eircode, a name and a mobile number.</p>
+    <p class="who">Three minutes. No coding, no developer, nothing installed. You can be live
+    this afternoon.</p>
+    <span class="go">The five steps &rarr;</span>
+  </a>
+  <a class="way way--two" href="/connected">
+    <span class="tag tag--later">As volume builds</span>
+    <h3>hop Connected</h3>
+    <p>Shopify sends us each paid order by itself. Nobody types anything and nothing gets
+    forgotten on a busy Saturday.</p>
+    <p class="who">One setting, added by whoever looks after your website. Worth doing once you
+    are sending a few a day rather than a few a week.</p>
+    <span class="go go--two">How it works &rarr;</span>
+  </a>
+</div>
+
 <div class="rows">
   <a href="/setup">
     <b>How do I set it up?</b>
@@ -155,8 +218,8 @@ footer{background:var(--dark);margin-top:44px}
   </a>
   <a href="/questions#phone">
     <b>What about phone, email and walk-in orders?</b>
-    <span>Raise them as a draft order in Shopify the way you already do, and pick same-day
-    as the delivery method.</span>
+    <span>Raise them in Shopify as a draft order the way you already do, or book them straight
+    on the link. Either works.</span>
   </a>
   <a href="/questions">
     <b>What do other shops ask?</b>
