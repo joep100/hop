@@ -137,6 +137,10 @@ h2:first-of-type{border-top:0;padding-top:0}
     <span><b>The stock is in the shop.</b> Anything I offer same-day on is physically in the
     building when the order comes in, not coming from a warehouse or a supplier.</span></label>
 
+  <label class="tick" id="t4"><input type="checkbox" id="cbPack">
+    <span><b>Orders are properly packed for transit.</b> Deliveries travel by bicycle, so
+    anything we collect is packed to reach the customer in the condition it left the shop.</span></label>
+
   <label class="tick" id="t2"><input type="checkbox" id="cbTerms">
     <span><b>I have read and agree to the terms.</b> Services are supplied subject to Cyclone
     Couriers&rsquo; standard conditions of trading. Payment is due within 30 days of invoice. I am
@@ -214,7 +218,7 @@ var SHOPS = {
     if (lg) lg.style.display = "none";
   }
 
-  ["t1","t2","t3"].forEach(function(id){
+  ["t1","t2","t3","t4"].forEach(function(id){
     var box = $(id), cb = box.querySelector("input");
     cb.addEventListener("change", function(){ box.classList.toggle("on", cb.checked); });
   });
@@ -238,6 +242,8 @@ var SHOPS = {
                      return fail("That email address does not look right.", "email");
     if (!$("cbStock").checked)
                      return fail("Please confirm the stock is in the shop.", "cbStock");
+    if (!$("cbPack").checked)
+                     return fail("Please confirm orders are packed for transit.", "cbPack");
     if (!$("cbTerms").checked)
                      return fail("Please confirm you agree to the terms.", "cbTerms");
     if (v("sig").length < 3)
@@ -251,7 +257,7 @@ var SHOPS = {
       contactName: v("who"), email: v("email"), invoiceEmail: v("invmail"),
       counterContact: v("counter"),
       shopReference: v("tag"), loginCode: v("code"),
-      stockInShop: true, agreedTerms: true, marketingOptIn: $("cbMail").checked,
+      stockInShop: true, packedForTransit: true, agreedTerms: true, marketingOptIn: $("cbMail").checked,
       signedBy: v("sig"), signedAt: new Date().toISOString()
     };
 
