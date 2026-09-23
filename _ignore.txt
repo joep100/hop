@@ -1,0 +1,5 @@
+Ignore this file.
+
+It exists only so that files are handed over in a batch rather than singly,
+which keeps their real names. Delete it from the repo whenever you like, or
+leave it — it does nothing.
