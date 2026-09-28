@@ -1,0 +1,1706 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Cyclone Group Booking Api",
+    "version": "v2.00"
+  },
+  "servers": [
+    {
+      "url": "/click_ext"
+    }
+  ],
+  "paths": {
+    "/HealthCheck": {
+      "get": {
+        "tags": [
+          "Booking"
+        ],
+        "summary": "Use this method to confirm your authorisation mode, the response will show TEST or LIVE.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/AddressSuggestions/{query}": {
+      "get": {
+        "tags": [
+          "Booking"
+        ],
+        "summary": "Use this method to query Clickacourier's address datasources <br />\r\nThe returned list of AddressSuggestionDto objects will each contain a placeId. <br />\r\nThe placeId can be used later to select an address or used in the CreateBooking method object",
+        "parameters": [
+          {
+            "name": "query",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AddressSuggestionDto"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AddressSuggestionDto"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AddressSuggestionDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/SelectEircodeAddress/{eircode}": {
+      "get": {
+        "tags": [
+          "Booking"
+        ],
+        "summary": "Use this method to select an exact Eircode match in Clickacourier's address datasources <br />\r\nIf an exact match is found, the method will return status 200 with the Suggested AddressDto\r\nyou can use the returned PlaceId value in the CreateBooking method\r\nelse if no exact match is found a status of 404 NotFound is returned",
+        "parameters": [
+          {
+            "name": "eircode",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddressDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddressDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddressDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/CreateCustomAddress": {
+      "post": {
+        "tags": [
+          "Booking"
+        ],
+        "summary": "Use this method to create a custom address, details of how to popuplate the CreateCustomAddressRequestDto <br />\r\nand how to interpret the returned object CreateCustomAddressResultDto are explained externally <br />\r\non success the placeId value can be used in the CreateBooking method",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCustomAddressRequestDto"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCustomAddressRequestDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCustomAddressRequestDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCustomAddressRequestDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateCustomAddressResultDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateCustomAddressResultDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateCustomAddressResultDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateCustomAddressResultDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateCustomAddressResultDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateCustomAddressResultDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/SelectAddress/{placeId}": {
+      "get": {
+        "tags": [
+          "Booking"
+        ],
+        "summary": "Use this method to select an address object using the placeId suggested by the AddressSuggestions method <br />\r\nThe returned list of AddressDto object contains full details of the corresponding placeId.",
+        "parameters": [
+          {
+            "name": "placeId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddressDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddressDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddressDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/CreateBooking": {
+      "post": {
+        "tags": [
+          "Booking"
+        ],
+        "summary": "Use this method to create a booking, details of how to popuplate the BookingRequestDto <br />\r\nand how to interpret the returned object BookingResultDto are explained externally <br />",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/BookingRequestDto"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BookingRequestDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BookingRequestDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/BookingRequestDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/BookingResultDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BookingResultDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BookingResultDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/BookingResultDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BookingResultDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BookingResultDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/CancelBooking": {
+      "post": {
+        "tags": [
+          "Booking"
+        ],
+        "summary": "Use this method to cancel a booking, see the schema section for request and result details",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CancelBookingRequestDto"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CancelBookingRequestDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CancelBookingRequestDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CancelBookingRequestDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/CancelBookingResultDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CancelBookingResultDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CancelBookingResultDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/CancelBookingResultDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CancelBookingResultDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CancelBookingResultDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/DeferBooking": {
+      "post": {
+        "tags": [
+          "Booking"
+        ],
+        "summary": "Use this method to cancel a booking, see the schema section for request and result details",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeferBookingRequestDto"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeferBookingRequestDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeferBookingRequestDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeferBookingRequestDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeferBookingResultDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeferBookingResultDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeferBookingResultDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeferBookingResultDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeferBookingResultDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeferBookingResultDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/BookingStatus/{trackingNumber}/{uuid}": {
+      "get": {
+        "tags": [
+          "Booking"
+        ],
+        "summary": "This method retrieves tracking events for the tracking reference returned by a successful call to CreateBooking <br />\r\nthe values for status are: confirmed, in_progress, out_for_delivery, delivered, cancelled, failed <br />\r\nThe uuid parameter relates to a valid system user account, it can be requested and will be shared by Cyclone securely <br />\r\nthe response DTO shows this status and may also have an arrary of previous tracking events with descriptions and timestamps.",
+        "parameters": [
+          {
+            "name": "trackingNumber",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "uuid",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/BookingStatusResponseDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BookingStatusResponseDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BookingStatusResponseDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/CreateQuote": {
+      "post": {
+        "tags": [
+          "Booking"
+        ],
+        "summary": "Use this method to create a quotation for  a potential booking",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCustomerQuoteRequestDto"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCustomerQuoteRequestDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCustomerQuoteRequestDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCustomerQuoteRequestDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateCustomerQuoteResponseDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateCustomerQuoteResponseDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateCustomerQuoteResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateCustomerQuoteResponseDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateCustomerQuoteResponseDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateCustomerQuoteResponseDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/GenerateShipmentLabel": {
+      "post": {
+        "tags": [
+          "Booking"
+        ],
+        "summary": "Generates one or more shipping labels as a single PDF document.\r\n            \r\n<br>\r\nThe request may contain data for a single booking reference/tracking number.\r\nThe generated PDF will contain one page per package (e.g. \"1 of N\", \"2 of N\").\r\n<br>\r\nOn success, this endpoint returns the PDF directly as `application/pdf`.\r\nClients should treat the response body as binary data and either stream it to a\r\n`.pdf` file or open it directly in a PDF viewer.\r\n<br>\r\nThe tracking number associated with the label is returned in the\r\n`X-Tracking-Number` response header.\r\n",
+        "description": "<b>Client usage notes:</b>\r\n<list type=\"bullet\">\r\n  <item>\r\n    <description>\r\n                   Do not attempt to parse the response as JSON on success.\r\n                 </description>\r\n  </item>\r\n  <item>\r\n    <description>\r\n                   Save the response bytes directly to a file with a `.pdf` extension.\r\n                 </description>\r\n  </item>\r\n  <item>\r\n    <description>\r\n                   Example (C#):\r\n                   ```\r\n             var bytes = await response.Content.ReadAsByteArrayAsync();\r\n             File.WriteAllBytes(\"labels.pdf\", bytes);\r\n                   ```</description>\r\n  </item>\r\n</list>",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/GenerateShippingLabelRequestDto"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GenerateShippingLabelRequestDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GenerateShippingLabelRequestDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/GenerateShippingLabelRequestDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "PDF generated successfully. The response body contains the PDF binary data.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request was invalid or label generation failed. The response body contains\r\na JSON object describing the errors.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenerateShippingLabelResponseDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenerateShippingLabelResponseDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenerateShippingLabelResponseDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AddressDto": {
+        "type": "object",
+        "properties": {
+          "addressId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "companyName": {
+            "type": "string"
+          },
+          "addressLine1": {
+            "type": "string"
+          },
+          "addressLine2": {
+            "type": "string"
+          },
+          "addressLine3": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "county": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "postalCode": {
+            "type": "string"
+          },
+          "latitude": {
+            "type": "number",
+            "format": "float"
+          },
+          "longitude": {
+            "type": "number",
+            "format": "float"
+          },
+          "region": {
+            "type": "string"
+          },
+          "placeId": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Address object returned from SelectAddress method"
+      },
+      "AddressSuggestionDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Info only"
+          },
+          "address": {
+            "type": "string",
+            "description": "More detailed version Name"
+          },
+          "placeId": {
+            "type": "string",
+            "description": "This is the field used in the SelectAddress and CreatBooking methods"
+          },
+          "source": {
+            "type": "string",
+            "description": "System Information"
+          }
+        },
+        "additionalProperties": false,
+        "description": "This object gives details of the suggested addresses returned from the query method"
+      },
+      "BookingCompany": {
+        "type": "object",
+        "properties": {
+          "accountCode": {
+            "type": "string"
+          },
+          "uuid": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Booking Company Context Object"
+      },
+      "BookingRequestDto": {
+        "type": "object",
+        "properties": {
+          "caller": {
+            "type": "string",
+            "description": "Person's Name, (the booker's name). Required."
+          },
+          "collection": {
+            "type": "string",
+            "description": "The placeId representing the collection address, must have been obtained from the AddressSuggestions method. Required."
+          },
+          "collectionSubAddressLine": {
+            "type": "string",
+            "description": "Optional Additional Address Line to assist collection",
+            "nullable": true
+          },
+          "delivery": {
+            "type": "string",
+            "description": "The placeId representing the delivery address, must have been obtained from the AddressSuggestions method. Required."
+          },
+          "deliverySubAddressLine": {
+            "type": "string",
+            "description": "Optional Additional Address Line to assist delivery",
+            "nullable": true
+          },
+          "account": {
+            "type": "string",
+            "description": "The account code used to place this booking in Clickacourier. Required."
+          },
+          "vehicle": {
+            "type": "string",
+            "description": "The vehicle required. Values: PUSHBIKE, BIKE, TOP-BOX-BIKE, CARGO-BIKE, CARGO-BIKE-MAX, SMALL-VAN, LARGE-VAN. Required."
+          },
+          "service": {
+            "type": "string",
+            "description": "The service type. Values: STANDARD or PRIORITY. Required."
+          },
+          "goodsDescription": {
+            "type": "string",
+            "description": "Short description of the goods, e.g., Envelope, tools, etc. Optional."
+          },
+          "numberOfItems": {
+            "type": "integer",
+            "description": "Number of packages/items to be collected. Optional.",
+            "format": "int32"
+          },
+          "totalWeight": {
+            "type": "number",
+            "description": "Total weight of all items for collection. Optional.",
+            "format": "float"
+          },
+          "collectionTime": {
+            "type": "string",
+            "description": "When the collection is ready. Date and time in \"yyyy-MM-dd hh:mm:ss\" format, local time (Dublin GMT). Optional."
+          },
+          "_return": {
+            "type": "boolean",
+            "description": "Indicates if the driver needs to return to the collection point after delivery. Optional."
+          },
+          "insurance": {
+            "type": "boolean",
+            "description": "Indicates if the customer requires Insurance"
+          },
+          "collectionName": {
+            "type": "string",
+            "description": "Contact name at the collection point. Optional."
+          },
+          "collectionPhone": {
+            "type": "string",
+            "description": "Contact phone number at the collection point. Optional."
+          },
+          "deliveryName": {
+            "type": "string",
+            "description": "Contact name at the delivery point. Optional."
+          },
+          "deliveryPhone": {
+            "type": "string",
+            "description": "Contact phone number at the delivery point. Optional."
+          },
+          "reference": {
+            "type": "string",
+            "description": "Booker’s reference. Optional."
+          },
+          "notes": {
+            "type": "string",
+            "description": "Special instructions or notes for the booking. Optional."
+          },
+          "uuid": {
+            "type": "string",
+            "description": "This is a unique key related to your account, shared by Cyclone securely. Required (in Live Mode will be validated, but any text is valid in test mode)"
+          },
+          "quoteId": {
+            "type": "string",
+            "description": "This field represents a previously created customer quoteId, takend from one of the Quote items contained in the CreateCustomerQuoteResponseDto"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Create a booking request object"
+      },
+      "BookingResultDto": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "description": "Booking created flag, if it is false the ErrorMesages field will contain the reasons for the failure."
+          },
+          "trackingNumber": {
+            "type": "string"
+          },
+          "errorMessages": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Reasons for failure, validation, server errors, etc"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Booking request response"
+      },
+      "BookingStatusResponseDto": {
+        "type": "object",
+        "properties": {
+          "jobs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TrackingJob"
+            },
+            "description": "List of tracking jobs related to the booking"
+          },
+          "company": {
+            "$ref": "#/components/schemas/BookingCompany"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Booking Status Response"
+      },
+      "CancelBookingRequestDto": {
+        "type": "object",
+        "properties": {
+          "trackingNumber": {
+            "type": "string",
+            "description": "Tracking Number to cancel"
+          },
+          "uuid": {
+            "type": "string",
+            "description": "account uuid shared by Cyclone\r\nthe uuid parameter is a valid system user account related to the tracking number"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Cancel Booking Request"
+      },
+      "CancelBookingResultDto": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "description": "Was the request successful"
+          },
+          "trackingNumber": {
+            "type": "string",
+            "description": "The tracking number context"
+          },
+          "errorMessages": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of error messages"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Cancel booking response\r\nA list of error messages if success = false <br />\r\nBooking Not found for booking reference xxxxxxx <br />\r\ncompany not found for booking reference xxxxxxx <br />\r\nCompany {uuid} does not have access to booking xxxxxxx <br />\r\nBooking reference xxxxxx cannot be cancelled"
+      },
+      "CreateCustomAddressRequestDto": {
+        "type": "object",
+        "properties": {
+          "companyName": {
+            "type": "string",
+            "description": "Optional Company Name",
+            "nullable": true
+          },
+          "addressLine1": {
+            "type": "string",
+            "description": "Required Address Line 1"
+          },
+          "addressLine2": {
+            "type": "string",
+            "description": "Optional Address Line 2",
+            "nullable": true
+          },
+          "city": {
+            "type": "string",
+            "description": "Required City / Town"
+          },
+          "county": {
+            "type": "string",
+            "description": "Required County"
+          },
+          "countryCode": {
+            "type": "string",
+            "description": "Required Country Code (set to IE)"
+          },
+          "postalCode": {
+            "type": "string",
+            "description": "Required Eircode/Postal code"
+          },
+          "latitude": {
+            "type": "number",
+            "description": "Optional Latitude - Required if longitude is included\r\nif included please enure it is accurate",
+            "format": "float",
+            "nullable": true
+          },
+          "longitude": {
+            "type": "number",
+            "description": "Optional lobgitude - Required if latitude is included\r\nif included please enure it is accurate",
+            "format": "float",
+            "nullable": true
+          },
+          "accountCode": {
+            "type": "string",
+            "description": "Required Authorised Account"
+          },
+          "uuid": {
+            "type": "string",
+            "description": "Required Authorised Account uuid"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateCustomAddressResultDto": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "description": "Address created flag, if it is false the ErrorMesages field will contain the reasons for the failure."
+          },
+          "placeId": {
+            "type": "string"
+          },
+          "errorMessages": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Reasons for failure, validation, server errors, etc"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateCustomerQuoteRequestDto": {
+        "type": "object",
+        "properties": {
+          "account": {
+            "type": "string",
+            "description": "The customer account reference."
+          },
+          "uuid": {
+            "type": "string",
+            "description": "The unique customer or company identifier."
+          },
+          "fromPlaceId": {
+            "type": "string",
+            "description": "The pickup location place identifier."
+          },
+          "toPlaceId": {
+            "type": "string",
+            "description": "The delivery location place identifier."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Quote request details for a specific customer."
+      },
+      "CreateCustomerQuoteResponseDto": {
+        "required": [
+          "quotes"
+        ],
+        "type": "object",
+        "properties": {
+          "quotes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Quote"
+            },
+            "description": "A list of delivery quote options including route, settings, and vehicle pricing."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Response payload containing delivery quote results."
+      },
+      "DeferBookingRequestDto": {
+        "type": "object",
+        "properties": {
+          "account": {
+            "type": "string",
+            "description": "Account"
+          },
+          "trackingNumber": {
+            "type": "string",
+            "description": "Tracking Number to Defer"
+          },
+          "uuid": {
+            "type": "string",
+            "description": "account uuid shared by Cyclone\r\nthe uuid parameter is a valid system user account related to the tracking number"
+          },
+          "deferralDate": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Defer Booking Request"
+      },
+      "DeferBookingResultDto": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "description": "Was the request successful"
+          },
+          "trackingNumber": {
+            "type": "string",
+            "description": "The tracking number context"
+          },
+          "errorMessages": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of error messages"
+          },
+          "availableDates": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        },
+        "additionalProperties": false,
+        "description": "Defer booking response\r\nA list of error messages if success = false <br />\r\nBooking Not found for booking reference xxxxxxx <br />\r\ncompany not found for booking reference xxxxxxx <br />\r\nCompany {uuid} does not have access to booking xxxxxxx <br />\r\nBooking reference xxxxxx cannot be Deferred, already commenced\r\nInvalid deferral date, choose from  available dates"
+      },
+      "GenerateShippingLabelRequestDto": {
+        "type": "object",
+        "properties": {
+          "trackingNumber": {
+            "type": "string"
+          },
+          "accountCode": {
+            "type": "string"
+          },
+          "uuid": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Use this object to request a shipping label for an existing booking,\r\nthe tracking number must be related to the account code and uuid"
+      },
+      "GenerateShippingLabelResponseDto": {
+        "type": "object",
+        "properties": {
+          "trackingNumber": {
+            "type": "string"
+          },
+          "success": {
+            "type": "boolean"
+          },
+          "pdfBytes": {
+            "type": "string",
+            "format": "byte",
+            "nullable": true
+          },
+          "errorMessages": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "LocationLeg": {
+        "required": [
+          "from",
+          "legId",
+          "to"
+        ],
+        "type": "object",
+        "properties": {
+          "legId": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "description": "Unique identifier for this route leg."
+          },
+          "from": {
+            "$ref": "#/components/schemas/Place"
+          },
+          "to": {
+            "$ref": "#/components/schemas/Place"
+          }
+        },
+        "additionalProperties": false,
+        "description": "One leg in the route between two places."
+      },
+      "Place": {
+        "required": [
+          "country",
+          "placeId"
+        ],
+        "type": "object",
+        "properties": {
+          "placeId": {
+            "maxLength": 128,
+            "minLength": 0,
+            "type": "string",
+            "description": "Internal place identifier."
+          },
+          "country": {
+            "maxLength": 2,
+            "minLength": 0,
+            "type": "string",
+            "description": "Country code of the location."
+          },
+          "lat": {
+            "maximum": 90,
+            "minimum": -90,
+            "type": "number",
+            "description": "Latitude coordinate.",
+            "format": "double"
+          },
+          "lng": {
+            "maximum": 180,
+            "minimum": -180,
+            "type": "number",
+            "description": "Longitude coordinate.",
+            "format": "double"
+          },
+          "zone": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "description": "Operational zone name."
+          },
+          "pricingZone": {
+            "maxLength": 16,
+            "minLength": 0,
+            "type": "string",
+            "description": "Pricing zone code."
+          }
+        },
+        "additionalProperties": false,
+        "description": "A physical place with coordinates and pricing zones."
+      },
+      "PriceDetail": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "maxLength": 32,
+            "minLength": 0,
+            "type": "string",
+            "description": "Price type identifier."
+          },
+          "cost": {
+            "maximum": 79228162514264337593543950335,
+            "minimum": 0,
+            "type": "number",
+            "description": "Final calculated cost.",
+            "format": "double"
+          },
+          "beforeDiscount": {
+            "type": "number",
+            "description": "Original price before any discounts were applied.",
+            "format": "double",
+            "nullable": true
+          },
+          "discountPercent": {
+            "maximum": 100,
+            "minimum": 0,
+            "type": "number",
+            "description": "Discount percentage applied to the original price.",
+            "format": "double"
+          },
+          "pricer": {
+            "maxLength": 32,
+            "minLength": 0,
+            "type": "string",
+            "description": "Pricing engine or strategy used to calculate this price."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Base price details including discounts and pricing metadata."
+      },
+      "PriceWithOptions": {
+        "type": "object",
+        "properties": {
+          "price": {
+            "$ref": "#/components/schemas/PriceDetail"
+          },
+          "options": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PricingOption"
+            },
+            "description": "Optional add-on pricing options."
+          }
+        },
+        "additionalProperties": false,
+        "description": "A base price combined with optional add-on pricing items."
+      },
+      "PricingOption": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "description": "Option type identifier."
+          },
+          "cost": {
+            "maximum": 79228162514264337593543950335,
+            "minimum": 0,
+            "type": "number",
+            "description": "Additional cost for this option.",
+            "format": "double"
+          },
+          "name": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "description": "Display name of the pricing option."
+          },
+          "description": {
+            "maxLength": 256,
+            "minLength": 0,
+            "type": "string",
+            "description": "Human-readable description of the option."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Optional extra such as a return trip or insurance."
+      },
+      "ProblemDetails": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "nullable": true
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "detail": {
+            "type": "string",
+            "nullable": true
+          },
+          "instance": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": { }
+      },
+      "Quote": {
+        "required": [
+          "company",
+          "expires",
+          "locations",
+          "uid",
+          "vehicle"
+        ],
+        "type": "object",
+        "properties": {
+          "uid": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "description": "Unique identifier for this quote option."
+          },
+          "company": {
+            "maxLength": 64,
+            "minLength": 0,
+            "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+            "type": "string",
+            "description": "Company identifier (GUID)."
+          },
+          "distance": {
+            "maximum": 2147483647,
+            "minimum": 0,
+            "type": "integer",
+            "description": "Total route distance in meters.",
+            "format": "int32"
+          },
+          "locations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LocationLeg"
+            },
+            "description": "Route legs that this quote covers."
+          },
+          "expires": {
+            "type": "string",
+            "description": "UTC timestamp when this quote expires.",
+            "format": "date-time"
+          },
+          "vehicle": {
+            "$ref": "#/components/schemas/Vehicle"
+          }
+        },
+        "additionalProperties": false,
+        "description": "A delivery quote option for a given user, company, route, and vehicle."
+      },
+      "Tracking": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Event Type,"
+          },
+          "source": {
+            "type": "string",
+            "description": "Carrier Source"
+          },
+          "description": {
+            "type": "string",
+            "description": "Event Description, notes"
+          },
+          "timestamp": {
+            "type": "integer",
+            "description": "Event Timestamp",
+            "format": "int64"
+          },
+          "trackingTime": {
+            "type": "string",
+            "description": "Event Timestamp converted",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Tracking Event Details"
+      },
+      "TrackingBooking": {
+        "type": "object",
+        "properties": {
+          "reference": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Tracking Booking Context Object"
+      },
+      "TrackingJob": {
+        "type": "object",
+        "properties": {
+          "tracking": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Tracking"
+            },
+            "description": "List of tracking events"
+          },
+          "booking": {
+            "$ref": "#/components/schemas/TrackingBooking"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Tracking Job, used to display tracking information and the booking context"
+      },
+      "Vehicle": {
+        "required": [
+          "name",
+          "pricing",
+          "service",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Internal vehicle identifier.",
+            "format": "int32"
+          },
+          "type": {
+            "$ref": "#/components/schemas/VehicleType"
+          },
+          "name": {
+            "maxLength": 64,
+            "minLength": 0,
+            "type": "string",
+            "description": "Display name of the vehicle."
+          },
+          "description": {
+            "maxLength": 256,
+            "minLength": 0,
+            "type": "string",
+            "description": "Description of the vehicle and its use case."
+          },
+          "maxWeight": {
+            "maximum": 2147483647,
+            "minimum": 0,
+            "type": "integer",
+            "description": "Maximum payload weight.",
+            "format": "int32"
+          },
+          "service": {
+            "$ref": "#/components/schemas/VehicleService"
+          },
+          "features": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Marketing or operational features."
+          },
+          "staffOnly": {
+            "type": "boolean",
+            "description": "Indicates whether this vehicle option is staff-only."
+          },
+          "pricing": {
+            "$ref": "#/components/schemas/VehiclePricing"
+          },
+          "includedOptions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PricingOption"
+            },
+            "description": "Options included in the base price."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Vehicle configuration including capacity and pricing."
+      },
+      "VehiclePricing": {
+        "type": "object",
+        "properties": {
+          "vehicleId": {
+            "type": "integer",
+            "description": "Identifier of the vehicle associated with this pricing.",
+            "format": "int32"
+          },
+          "exVat": {
+            "$ref": "#/components/schemas/PriceWithOptions"
+          },
+          "incVat": {
+            "$ref": "#/components/schemas/PriceWithOptions"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Pricing information for a specific vehicle, including prices\r\nexcluding and including VAT."
+      },
+      "VehicleService": {
+        "enum": [
+          0,
+          1,
+          2
+        ],
+        "type": "integer",
+        "description": "Supported vehicle service types.",
+        "format": "int32"
+      },
+      "VehicleType": {
+        "enum": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "type": "integer",
+        "description": "Supported vehicle types.",
+        "format": "int32"
+      }
+    },
+    "securitySchemes": {
+      "ApiKey": {
+        "type": "apiKey",
+        "description": "ApiKey must appear in header",
+        "name": "X-API-Key",
+        "in": "header"
+      }
+    }
+  },
+  "security": [
+    {
+      "ApiKey": [ ]
+    }
+  ]
+}
