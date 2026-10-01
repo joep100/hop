@@ -218,10 +218,10 @@ a.way:hover{transform:translateY(-3px);box-shadow:0 16px 32px -18px rgba(23,25,2
 }
 .nextphase{font-size:15.5px;color:#3a3d33;line-height:1.55;margin:4px 0 26px;
  padding-top:22px;border-top:1px solid rgba(23,25,27,.2);max-width:62ch}
-.rows{margin-bottom:26px}
-.rows a{display:block;background:rgba(255,255,255,.5);border:1px solid rgba(23,25,27,.18);border-radius:12px;
+.rows{margin-bottom:0}
+.rows a{display:block;background:#fff;border:1px solid rgba(23,25,27,.10);border-radius:14px;
  padding:18px 44px 18px 20px;margin-bottom:8px;text-decoration:none;position:relative}
-.rows a:hover b{color:#17191b}
+.rows a:hover b{color:#FFCC00}
 .rows a::after{content:"\2192";position:absolute;right:18px;top:50%;margin-top:-14px;
  font-size:20px;color:#17191b;line-height:1}
 .rows b{display:block;font-size:17.5px;font-weight:800;color:#17191b;letter-spacing:-.015em;
@@ -266,10 +266,10 @@ footer{background:var(--dark);margin-top:44px}
  box-shadow:0 14px 30px -16px rgba(23,25,27,.4)}
 
 .rows a{transition:background .18s ease, transform .18s ease}
-.rows a:hover{background:#fff;border-color:#fff;transform:translateX(4px)}
+.rows a:hover{background:#17191b;border-color:#17191b;transform:translateX(4px)}
 .rows a::after{transition:transform .18s ease}
-.rows a:hover span{color:#4b5257}
-.rows a:hover::after{transform:translateX(4px);color:var(--orange)}
+.rows a:hover span{color:rgba(255,255,255,.8)}
+.rows a:hover::after{transform:translateX(4px);color:#FFCC00}
 .rows b{transition:color .18s ease}
 
 .btn{transition:background .18s ease, transform .12s ease, box-shadow .18s ease}
@@ -329,8 +329,12 @@ h1,h2,h3,.say b,.bleed__t b,.split__t b,.stp__h,.result b,.prov b,.fact b,.price
   .split__t b{font-size:26px}
 }
 .asat{color:#6b6d5f;font-size:15px}
-.tprow{display:-webkit-box;display:flex;align-items:center;margin:0 0 16px}
-.tprow .youwe{flex:1;margin:0;padding-right:26px}
+.brk{border-top:1px solid rgba(23,25,27,.22);margin:44px 0 38px}
+.tprow{display:-webkit-box;display:flex;align-items:center;margin:0 0 20px}
+.tprow .youwe{flex:1;margin:0;padding-right:30px;font-family:"Nunito",system-ui,sans-serif;
+ font-size:25px;line-height:1.35;letter-spacing:-.02em}
+.tprow .youwe b{font-weight:800}
+.tprow .asat{font-size:17px}
 .tpbtn{flex:none;display:inline-block;background:#17191b;color:#FFCC00;font-size:14.5px;
  font-weight:800;text-decoration:none;border-radius:10px;padding:12px 20px;white-space:nowrap}
 .tpbtn:hover{background:#000;color:#fff}
@@ -420,6 +424,8 @@ to connect your shopping cart to us directly. No hurry, and nothing to think abo
     <span>Cut-off times, free delivery, what happens when something goes wrong.</span>
   </a>
 </div>
+
+<div class="brk"></div>
 
 <h2 class="gs">What people say</h2>
 <div class="tprow">
