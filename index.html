@@ -607,8 +607,12 @@ to connect your shopping cart to us directly. No hurry, and nothing to think abo
     sEl.textContent = '';
     if (!failed) {
       oEl.className = 'fit__out yes';
-      oEl.innerHTML = '<b>That is a fit.</b>Stock you already know is on the shelf, with your ' +
-        'customer the same afternoon. &euro;9.95 a delivery, &euro;12.95 for a jumbo bag.' +
+      /* What the service does, rather than a claim about their customers. A shop
+         that has been on the street thirty years does not need telling how to
+         make fans. */
+      oEl.innerHTML = '<b>That is a fit.</b>Somebody who ordered this morning has it by ' +
+        'teatime, and remembers where it came from. &euro;9.95 a delivery, ' +
+        '&euro;12.95 for a jumbo bag.' +
         '<br><a class="fit__go" href="/start">Get started &rarr;</a>' +
         '<br><button type="button" class="fit__again">Start again</button>';
       oEl.querySelector('.fit__again').addEventListener('click', function(){
