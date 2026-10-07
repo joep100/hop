@@ -9,6 +9,18 @@
 *{box-sizing:border-box}
 body{margin:0;background:#FFCC00;font-family:"Nunito",system-ui,sans-serif;
  color:var(--ink);font-size:16.5px;line-height:1.5;-webkit-font-smoothing:antialiased}
+/* Depth without a second colour: lit from above, falling away at the foot, so
+   the cards sit in light rather than on a flat wall. The same as the booking
+   tool, so the two feel like one product. */
+@media(min-width:720px){
+  body{
+    background:
+      radial-gradient(90% 60% at 50% -8%, rgba(255,255,255,.34) 0%, rgba(255,255,255,0) 62%),
+      radial-gradient(130% 95% at 50% 112%, rgba(120,84,0,.38) 0%, rgba(120,84,0,0) 58%),
+      #FFCC00;
+    background-attachment:fixed;
+  }
+}
 
 header{border-bottom:0}
 .bar{max-width:900px;margin:0 auto;padding:12px 26px;text-align:right}
@@ -129,7 +141,8 @@ a.go:hover{text-decoration:underline}
 .way--two .go{border-top-color:rgba(255,255,255,.25);color:rgba(255,255,255,.92);
  font-weight:800}
 a.way{text-decoration:none;display:block;transition:transform .18s ease, box-shadow .18s ease}
-a.way:hover{transform:translateY(-3px);box-shadow:0 16px 32px -18px rgba(23,25,27,.45)}
+a.way:hover{transform:translateY(-3px);box-shadow:0 1px 2px rgba(90,64,0,.10), 0 8px 20px -8px rgba(90,64,0,.22),
+    0 26px 48px -26px rgba(90,64,0,.42)}
 .way--two .go{color:rgba(255,255,255,.9)}
 
 /* white card */
@@ -263,7 +276,8 @@ footer{background:var(--dark);margin-top:44px}
    prefers-reduced-motion. */
 .claims>div,.fig{transition:transform .18s ease, box-shadow .18s ease}
 .claims>div:hover,.fig:hover{transform:translateY(-2px);
- box-shadow:0 14px 30px -16px rgba(23,25,27,.4)}
+ box-shadow:0 1px 2px rgba(90,64,0,.10), 0 8px 20px -8px rgba(90,64,0,.22),
+    0 26px 48px -26px rgba(90,64,0,.42)}
 
 .rows a{transition:background .18s ease, transform .18s ease}
 .rows a:hover{background:#17191b;border-color:#17191b;transform:translateX(4px)}
@@ -273,7 +287,8 @@ footer{background:var(--dark);margin-top:44px}
 .rows b{transition:color .18s ease}
 
 .btn{transition:background .18s ease, transform .12s ease, box-shadow .18s ease}
-.btn:hover{transform:translateY(-2px);box-shadow:0 12px 26px -12px rgba(23,25,27,.45)}
+.btn:hover{transform:translateY(-2px);box-shadow:0 1px 2px rgba(90,64,0,.10), 0 8px 20px -8px rgba(90,64,0,.22),
+    0 26px 48px -26px rgba(90,64,0,.42)}
 .btn:active{transform:translateY(0)}
 
 .bar a,.talk .or a,.foot a{transition:color .15s ease}
