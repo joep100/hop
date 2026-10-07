@@ -371,7 +371,10 @@ h1,h2,h3,.say b,.bleed__t b,.split__t b,.stp__h,.result b,.prov b,.fact b,.price
   text-decoration:none;border-radius:11px;padding:12px 22px}
 .fit__go:hover{background:#fff}
 .fit__again{background:none;border:0;padding:0;margin-top:14px;font:inherit;font-size:14.5px;
-  font-weight:700;color:inherit;opacity:.75;cursor:pointer;text-decoration:underline}
+  font-weight:700;color:inherit;opacity:.72;cursor:pointer;text-decoration:underline;
+  text-underline-offset:3px}
+.fit__again:hover{opacity:1}
+.fit__out.yes .fit__again{color:#fff}
 @media(max-width:700px){
   .fit{padding:26px 22px 22px}.fit__h{font-size:25px}.fit__q b{font-size:20px}
   .fit__btns button{flex:1 1 0;padding:13px 10px}
@@ -591,7 +594,11 @@ to connect your shopping cart to us directly. No hurry, and nothing to think abo
       oEl.className = 'fit__out yes';
       oEl.innerHTML = '<b>That is a fit.</b>Stock you already know is on the shelf, with your ' +
         'customer the same afternoon. &euro;9.95 a delivery, &euro;12.95 for a jumbo bag.' +
-        '<br><a class="fit__go" href="/start">Get started &rarr;</a>';
+        '<br><a class="fit__go" href="/start">Get started &rarr;</a>' +
+        '<br><button type="button" class="fit__again">Start again</button>';
+      oEl.querySelector('.fit__again').addEventListener('click', function(){
+        at = 0; failed = null; ask();
+      });
     } else {
       oEl.className = 'fit__out no';
       oEl.innerHTML = '<b>Not quite, on this one.</b>' + failed.no +
