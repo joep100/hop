@@ -339,6 +339,43 @@ h1,h2,h3,.say b,.bleed__t b,.split__t b,.stp__h,.result b,.prov b,.fact b,.price
  font-weight:800;text-decoration:none;border-radius:10px;padding:12px 20px;white-space:nowrap}
 .tpbtn:hover{background:#000;color:#fff}
 @media(max-width:760px){.tprow{display:block}.tprow .youwe{padding:0 0 14px}}
+
+.fit{background:#fff;border-radius:18px;padding:34px 34px 30px;margin:0 0 30px;
+  box-shadow:0 1px 2px rgba(90,64,0,.08), 0 10px 26px -14px rgba(90,64,0,.25)}
+/* Nunito carries the headings and anything that speaks up; Inter does the
+   reading. The same pairing as the rest of the site. */
+.fit__h{font-family:"Nunito",system-ui,sans-serif;font-size:30px;font-weight:800;
+  letter-spacing:-.03em;margin:0 0 6px;color:#17191b}
+.fit__s{font-family:"Nunito",system-ui,sans-serif;font-size:13px;font-weight:800;
+  letter-spacing:.09em;text-transform:uppercase;color:#9a9c90;margin:0 0 20px}
+.fit__q b{display:block;font-family:"Nunito",system-ui,sans-serif;font-size:23px;
+  font-weight:800;letter-spacing:-.02em;line-height:1.25;color:#17191b;margin-bottom:6px}
+.fit__q p{font-size:16px;line-height:1.55;color:#4a4a4a;margin:0 0 20px}
+.fit__btns{display:flex;gap:10px}
+.fit__btns button{flex:0 0 auto;background:#17191b;color:#fff;border:0;border-radius:12px;
+  padding:13px 30px;font-family:"Nunito",system-ui,sans-serif;font-size:16.5px;
+  font-weight:800;cursor:pointer}
+.fit__btns button:hover{background:#000;color:#FFCC00}
+.fit__btns button.no{background:#fff;color:#17191b;border:1.5px solid rgba(23,25,27,.26)}
+.fit__btns button.no:hover{background:#f4f2ef;color:#17191b;border-color:#17191b}
+.fit__out{padding:24px 26px;border-radius:14px;font-size:16.5px;line-height:1.6}
+.fit__out[hidden]{display:none}
+.fit__out.yes{background:#17191b;color:#fff}
+.fit__out.yes b{display:block;font-family:"Nunito",system-ui,sans-serif;color:#FFCC00;
+  font-size:24px;font-weight:800;letter-spacing:-.02em;margin-bottom:6px}
+.fit__out.no{background:#FFF3C4;color:#17191b}
+.fit__out.no b{display:block;font-family:"Nunito",system-ui,sans-serif;font-size:21px;
+  font-weight:800;letter-spacing:-.02em;margin-bottom:6px}
+.fit__go{display:inline-block;margin-top:16px;background:#FFCC00;color:#17191b;
+  font-family:"Nunito",system-ui,sans-serif;font-size:16px;font-weight:800;
+  text-decoration:none;border-radius:11px;padding:12px 22px}
+.fit__go:hover{background:#fff}
+.fit__again{background:none;border:0;padding:0;margin-top:14px;font:inherit;font-size:14.5px;
+  font-weight:700;color:inherit;opacity:.75;cursor:pointer;text-decoration:underline}
+@media(max-width:700px){
+  .fit{padding:26px 22px 22px}.fit__h{font-size:25px}.fit__q b{font-size:20px}
+  .fit__btns button{flex:1 1 0;padding:13px 10px}
+}
 </style></head><body>
 
 <header><div class="bar">
@@ -364,8 +401,17 @@ h1,h2,h3,.say b,.bleed__t b,.split__t b,.stp__h,.result b,.prov b,.fact b,.price
   </div>
 </div>
 
+<div class="fit" id="fit">
+  <h2 class="fit__h">See if this is a fit for your business</h2>
+  <p class="fit__s" id="fitStep">Three questions.</p>
+  <div class="fit__q" id="fitQ"></div>
+  <div class="fit__out" id="fitOut" hidden></div>
+</div>
+
+
+
 <h2 class="gs">How it works</h2>
-<p class="youwe">Four steps. <b>You do two of them.</b></p>
+
 
 <div class="rt">
   <div class="rt__line"></div>
@@ -489,4 +535,75 @@ to connect your shopping cart to us directly. No hurry, and nothing to think abo
   <p style="margin-top:8px"><a href="/login">Shop login</a> for stores already on hop.</p>
 </div></footer>
 
+
+<script>
+(function(){
+  var box = document.getElementById('fit');
+  if (!box) return;
+  var qEl = document.getElementById('fitQ');
+  var sEl = document.getElementById('fitStep');
+  var oEl = document.getElementById('fitOut');
+
+  var Q = [
+    { k:'time',
+      q:'Can we collect your orders by 2pm each day?',
+      p:'One collection, every weekday, same time. Whatever is packed and waiting goes out.',
+      no:'Then it goes on the next day\u2019s run rather than today\u2019s \u2014 still ahead of the post, ' +
+         'but not same-day. Worth a word with us about your cut-off.' },
+    { k:'size',
+      q:'Can your items be carried by motorbike or cargo bike?',
+      p:'A bag, a shoebox, a pair of boots, a small parcel. Not a sofa and not a pallet.',
+      no:'Then this is not the service for it. We do run vans \u2014 ring us and we will tell you ' +
+         'what that costs.' },
+    { k:'where',
+      q:'Are your customers in Dublin?',
+      p:'Fifteen kilometres of the city centre, which is most of the county.',
+      no:'We only cover Dublin for now. If your customers are elsewhere this is not for you yet.' }
+  ];
+
+  var at = 0, failed = null;
+
+  function ask(){
+    var q = Q[at];
+    sEl.textContent = 'Question ' + (at + 1) + ' of ' + Q.length;
+    qEl.innerHTML = '<b>' + q.q + '</b><p>' + q.p + '</p>' +
+      '<div class="fit__btns"><button type="button" data-a="1">Yes</button>' +
+      '<button type="button" class="no" data-a="0">No</button></div>';
+    qEl.querySelectorAll('button').forEach(function(b){
+      b.addEventListener('click', function(){ answer(b.dataset.a === '1'); });
+    });
+    oEl.hidden = true;
+  }
+
+  /* A no stops it. Carrying on to ask the rest would be going through the motions
+     when the answer is already known, and the useful thing is to say why. */
+  function answer(yes){
+    if (!yes) { failed = Q[at]; return done(); }
+    at += 1;
+    if (at >= Q.length) return done();
+    ask();
+  }
+
+  function done(){
+    qEl.innerHTML = '';
+    sEl.textContent = '';
+    if (!failed) {
+      oEl.className = 'fit__out yes';
+      oEl.innerHTML = '<b>That is a fit.</b>Stock you already know is on the shelf, with your ' +
+        'customer the same afternoon. &euro;9.95 a delivery, &euro;12.95 for a jumbo bag.' +
+        '<br><a class="fit__go" href="/start">Get started &rarr;</a>';
+    } else {
+      oEl.className = 'fit__out no';
+      oEl.innerHTML = '<b>Not quite, on this one.</b>' + failed.no +
+        '<br><button type="button" class="fit__again">Start again</button>';
+      oEl.querySelector('.fit__again').addEventListener('click', function(){
+        at = 0; failed = null; ask();
+      });
+    }
+    oEl.hidden = false;
+  }
+
+  ask();
+})();
+</script>
 </body></html>
