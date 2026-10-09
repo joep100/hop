@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-IE"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>hop — same-day delivery for Dublin shops</title>
+<title>Cyclone — same-day delivery for Dublin shops</title>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{--orange:#17191b;--orange-dk:#17191b;--ink:#17191b;--body:#3a3d33;
@@ -37,7 +37,9 @@ main{max-width:900px;margin:0 auto;padding:0 26px}
 
 .hero{padding:26px 0 24px;display:-webkit-box;display:flex;flex-wrap:wrap;
  align-items:center;margin:0 -12px}
-.hero__mark{float:left;width:130px;height:auto;display:block;margin:0 22px 12px 0}
+/* A wordmark, so width rather than height decides it - and smaller than the
+   badge was, because a long word at the same height shouts. */
+.hero__mark{float:left;width:168px;height:auto;display:block;margin:6px 22px 12px 0}
 .hero h1{margin:0;overflow:hidden}
 h1{font-size:27px;font-weight:800;letter-spacing:-.03em;line-height:1.15;
  margin:0 0 12px;max-width:none}
@@ -267,7 +269,7 @@ footer{background:var(--dark);margin-top:44px}
 @media(max-width:600px){
   main{padding:0 20px}.bar{padding:11px 20px}.hero{padding:24px 0 18px}
 .hero::after{content:"";display:block;clear:both}
-  h1{font-size:23px}.say b{font-size:33px}.hero__mark{width:98px}
+  h1{font-size:23px}.say b{font-size:33px}.hero__mark{width:134px}
 }
 
 /* ---------- movement on hover ----------
@@ -404,13 +406,13 @@ h1,h2,h3,.say b,.bleed__t b,.split__t b,.stp__h,.result b,.prov b,.fact b,.price
 <main>
 
 <div class="hero">
-  <img class="hero__mark" src="/img/mark.png" alt="hop">
-  <h1>Cyclone&rsquo;s same-day delivery for Dublin shops.</h1>
+  <img class="hero__mark" src="/img/mark.png" alt="Cyclone">
+  <h1>Same-day delivery for Dublin shops.</h1>
 
 </div>
 
 <div class="bleed">
-  <img class="bleed__i" src="/img/hero-bike.jpg" alt="A hop cargo bike outside a Dublin shop">
+  <img class="bleed__i" src="/img/hero-bike.jpg" alt="A Cyclone cargo bike outside a Dublin shop">
   <div class="bleed__t">
     <b>If it&rsquo;s on your shelf,<br>you can promise it today.</b>
     <p>Same-day delivery from your own Dublin shop. You pack it, we collect at 2pm and it
@@ -459,7 +461,7 @@ h1,h2,h3,.say b,.bleed__t b,.split__t b,.stp__h,.result b,.prov b,.fact b,.price
 </div>
 
 <div class="split">
-  <div class="split__i"><img src="/img/shop-counter.jpg" loading="lazy" decoding="async" alt="A shopkeeper packing an order into a hop bag"></div>
+  <div class="split__i"><img src="/img/shop-counter.jpg" loading="lazy" decoding="async" alt="A shopkeeper packing an order into a Cyclone bag"></div>
   <div class="split__t">
     <b>Thirty seconds at the counter.</b>
     <p>You pack the order exactly as you always would, then tell us on the link. That is the
@@ -518,11 +520,11 @@ to connect your shopping cart to us directly. No hurry, and nothing to think abo
 </div>
 
 <div class="prov">
-  <b>hop is Cyclone Couriers.</b>
-  <p>Delivering across Dublin since 1988. Thirty-eight years, our own riders on our own bikes,
-  ISO 9001 and ISO 14001 certified through the NSAI.</p>
-  <p>Not an app, not a crowd, not a startup. hop is a new name on a service this city has been
-  using for a long time.</p>
+  <b>Delivering across Dublin since 1988.</b>
+  <p>Thirty-eight years, our own riders on our own bikes, ISO 9001 and ISO 14001 certified
+  through the NSAI.</p>
+  <p>Not an app, not a crowd, not a startup. Same-day delivery for shops is a new service from
+  a company this city has been using for a long time.</p>
 </div>
 
 <div class="fig">
@@ -550,7 +552,7 @@ to connect your shopping cart to us directly. No hurry, and nothing to think abo
   <p>NSAI certified to ISO 9001 and ISO 14001.
     <a href="mailto:joepleass@cyclone.ie">joepleass@cyclone.ie</a> &middot;
     <a href="tel:+35314255722">01 425 5722</a></p>
-  <p style="margin-top:8px"><a href="/login">Shop login</a> for stores already on hop.</p>
+  <p style="margin-top:8px"><a href="/login">Shop login</a> for stores already signed up.</p>
 </div></footer>
 
 
