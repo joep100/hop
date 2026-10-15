@@ -35,11 +35,13 @@ header{border-bottom:0}
 .signin:hover{background:#17191b;color:#FFCC00;border-color:#17191b}
 main{max-width:900px;margin:0 auto;padding:0 26px}
 
-.hero{padding:26px 0 24px;display:-webkit-box;display:flex;flex-wrap:wrap;
- align-items:center;margin:0 -12px}
+.hero{padding:26px 0 24px;display:-webkit-box;display:flex;flex-direction:column;
+ align-items:flex-start;margin:0}
 /* A wordmark, so width rather than height decides it - and smaller than the
    badge was, because a long word at the same height shouts. */
-.hero__mark{float:left;width:168px;height:auto;display:block;margin:6px 22px 12px 0}
+/* A mark with a figure above the word: it needs its own row, because the
+   headline beside it starts level with the cyclist and reads as out of line. */
+.hero__mark{float:none;width:240px;height:auto;display:block;margin:0 0 18px 0}
 .hero h1{margin:0;overflow:hidden}
 h1{font-size:27px;font-weight:800;letter-spacing:-.03em;line-height:1.15;
  margin:0 0 12px;max-width:none}
@@ -269,7 +271,7 @@ footer{background:var(--dark);margin-top:44px}
 @media(max-width:600px){
   main{padding:0 20px}.bar{padding:11px 20px}.hero{padding:24px 0 18px}
 .hero::after{content:"";display:block;clear:both}
-  h1{font-size:23px}.say b{font-size:33px}.hero__mark{width:134px}
+  h1{font-size:23px}.say b{font-size:33px}.hero__mark{width:200px}
 }
 
 /* ---------- movement on hover ----------
@@ -540,8 +542,8 @@ to connect your shopping cart to us directly. No hurry, and nothing to think abo
 <div class="rows">
   <a href="/delivery-area">
     <b>What can you take, and how far?</b>
-    <span>If it fits in one of your own bags. All Dublin, plus Blackrock, D&uacute;n Laoghaire and
-    Swords.</span>
+    <span>If it fits in one of your own bags. All Dublin, plus Blackrock, D&uacute;n Laoghaire, Swords,
+    Malahide and Lucan.</span>
   </a>
   <a href="/questions#phone">
     <b>What about phone, email and walk-in orders?</b>
